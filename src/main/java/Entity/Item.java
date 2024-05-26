@@ -16,6 +16,7 @@ public class Item {
     private int price;
     private int warning;
     private String from;
+    private int remove = 0;
 
     @Override
     public String toString() {
@@ -28,6 +29,7 @@ public class Item {
                 ", price=" + price +
                 ", warning=" + warning +
                 ", from=" + from +
+                ", remove=" + remove +
                 '}';
     }
 
@@ -93,5 +95,13 @@ public class Item {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public int getRemove() {
+        return remove;
+    }
+
+    public void setRemove(int remove) {
+        this.remove = remove;
     }
 }

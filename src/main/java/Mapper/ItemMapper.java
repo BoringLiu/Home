@@ -4,6 +4,7 @@ import Entity.Item;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ public interface ItemMapper {
     @Select("select * from ItemInfo")
     List<Item> BrowseAllItem();
 
-    @Select("select name from ItemInfo where name = #{name}")
-    Item findItemByName(String name);
+    @Select("select name from ItemInfo where name like concat ('%',#{name},'%')")
+    List<Item> findItemByName(String name);
 
     @Insert("")
     void createItem(Item item);
@@ -25,7 +26,7 @@ public interface ItemMapper {
     @Select("select count(*) > 0 from ItemInfo where tid = #{tid}")
     Boolean existsByID(int tid);
 
-    @Delete("delete * from ItemInfo where tid = #{tid}")
+    @Update("update ItemInfo set remove = 1 where tid = #{tid}")
     void deleteItem(int tid);
 
     @Select("select * from ItemInfo where name like concat('%',#{target},'%') or remarks like concat('%',#{target},'%') or category like concat('%',#{target},'%')")

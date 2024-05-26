@@ -15,7 +15,6 @@ import java.util.List;
 @CrossOrigin
 public class ItemController {
 
-    @Autowired ItemMapper itemMapper;
     @Autowired ItemService itemService;
 
     @GetMapping("/item/All")
@@ -24,39 +23,19 @@ public class ItemController {
     }
 
     @PostMapping("/item/create")
-    public int createitem(@RequestBody Item item){
-        if(itemMapper.findItemByName(item.getName()) != null) return 0;
-        itemMapper.createItem(item);
-        return 1;
-    }
+    public int createitem(@RequestBody Item item){return itemService.createItem(item);}
 
     @DeleteMapping("/item/delete")
-    public int deleteitem(@RequestParam int tid){
-        if(itemMapper.existsByID(tid)) return 0;
-        itemMapper.deleteItem(tid);
-        return 1;
-    }
+    public int deleteitem(@RequestParam int tid){return itemService.deleteItem(tid);}
 
     @PutMapping("/item/update")
     public int updateitem(@RequestParam int tid,@RequestBody Item item){
-        if(itemMapper.findItemByID(tid) == null) return 0;
-        itemMapper.deleteItem(tid);
-        item.setTid(tid);
-        itemMapper.createItem(item);
-        return 1;
+        return itemService.updateItem(tid,item);
     }
 
     @GetMapping("/item/search")
     public List<Item> searchItem(@RequestParam int method,@RequestParam String target){
-        List<Item> res = new ArrayList<Item>(){};
-        if(method == 0){
-            res.add(itemMapper.findItemByID(Integer.parseInt(target)));
-        }else if(method == 1){
-            res.add(itemMapper.findItemByName(target));
-        }else{
-            return itemMapper.findItemByFuzzy(target);
-        }
-        return res;
+        return itemService.searchItem(method,target);
     }
 
 
