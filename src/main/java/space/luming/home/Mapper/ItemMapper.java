@@ -15,8 +15,8 @@ public interface ItemMapper {
     @Results({@Result(column="last_update",property="lastupdate",jdbcType= JdbcType.TIMESTAMP),})
     List<Item> findItemByName(String name);
 
-    @Insert("INSERT INTO ItemInfo (tid, name, count, position, last_update, price, warning, `from`, remove)\n" +
-            "VALUES (#{tid}, #{name}, #{count}, #{position}, #{lastupdate}, #{price}, #{warning}, #{from}, #{remove});")
+    @Insert("INSERT INTO ItemInfo (tid, name, count, position, last_update, price, warning, from, remove, remark)\n" +
+            "VALUES (#{tid}, #{name}, #{count}, #{position}, #{lastupdate}, #{price}, #{warning}, #{from}, #{remove}, #{remark});")
     void createItem(Item item);
 
     @Select("select * from ItemInfo where tid = #{tid} and remove = 0")
@@ -29,7 +29,7 @@ public interface ItemMapper {
     @Update("update ItemInfo set remove = 1 where tid = #{tid}")
     void deleteItem(int tid);
 
-    @Select("select * from ItemInfo where name like concat('%',#{target},'%') or remarks like concat('%',#{target},'%') or category like concat('%',#{target},'%') and remove = 0")
+    @Select("select * from ItemInfo where name like concat('%',#{target},'%') or remark like concat('%',#{target},'%') and remove = 0")
     @Results({@Result(column="last_update",property="lastupdate",jdbcType= JdbcType.TIMESTAMP),})
     List<Item> findItemByFuzzy(String target);
 

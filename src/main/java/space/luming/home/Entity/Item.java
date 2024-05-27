@@ -32,6 +32,7 @@ public class Item {
     private String from;
     private int remove = 0;
     private int averageusing;
+    private String remark;
 
     @Override
     public String toString() {
@@ -45,6 +46,7 @@ public class Item {
                 ", warning=" + warning +
                 ", from=" + from +
                 ", remove=" + remove +
+                ",remark=" + remark +
                 '}';
     }
 
@@ -126,5 +128,13 @@ public class Item {
 
     public void setAverageusing(int averageusing) {
         this.averageusing = averageusing;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
