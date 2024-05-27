@@ -1,22 +1,37 @@
-package Entity;
+package space.luming.home.Entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import javax.annotation.processing.Generated;
 
+@TableName("ItemInfo")
 public class Item {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tid;
     private String name;
     private int count;
     private String position;
-    private String last_update;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime lastupdate;
     private int price;
-    private int warning;
+    private int warning = 0;
     private String from;
     private int remove = 0;
+    private int averageusing;
 
     @Override
     public String toString() {
@@ -25,7 +40,7 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", count=" + count +
                 ", position='" + position + '\'' +
-                ", last_update='" + last_update + '\'' +
+                ", last_update='" + lastupdate + '\'' +
                 ", price=" + price +
                 ", warning=" + warning +
                 ", from=" + from +
@@ -65,12 +80,12 @@ public class Item {
         this.position = position;
     }
 
-    public String getLast_update() {
-        return last_update;
+    public LocalDateTime getLastupdate() {
+        return lastupdate;
     }
 
-    public void setLast_update(String last_update) {
-        this.last_update = last_update;
+    public void setLastupdate(LocalDateTime lastupdate) {
+        this.lastupdate = lastupdate;
     }
 
     public int getPrice() {
@@ -103,5 +118,13 @@ public class Item {
 
     public void setRemove(int remove) {
         this.remove = remove;
+    }
+
+    public int getAverageusing() {
+        return averageusing;
+    }
+
+    public void setAverageusing(int averageusing) {
+        this.averageusing = averageusing;
     }
 }

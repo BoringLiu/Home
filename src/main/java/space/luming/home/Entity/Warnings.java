@@ -1,4 +1,4 @@
-package Entity;
+package space.luming.home.Entity;
 
 public class Warnings {
 
