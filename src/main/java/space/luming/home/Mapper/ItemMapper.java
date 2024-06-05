@@ -15,8 +15,8 @@ public interface ItemMapper {
     @Results({@Result(column="last_update",property="lastupdate",jdbcType= JdbcType.TIMESTAMP),})
     List<Item> findItemByName(String name);
 
-    @Insert("INSERT INTO ItemInfo (tid, name, count, position, last_update, price, warning, from, remove, remark)\n" +
-            "VALUES (#{tid}, #{name}, #{count}, #{position}, #{lastupdate}, #{price}, #{warning}, #{from}, #{remove}, #{remark});")
+    @Insert("INSERT INTO ItemInfo (tid, name, count, position, last_update, price, warning, `from`, remove, remark)\n" +
+            "VALUES (#{tid}, #{name}, #{count}, #{position}, #{lastupdate}, #{price}, #{warning}, #{from}, #{remove}, #{remark})")
     void createItem(Item item);
 
     @Select("select * from ItemInfo where tid = #{tid} and remove = 0")
@@ -35,6 +35,5 @@ public interface ItemMapper {
 
     @Select("select count(*) > 0 from ItemInfo where name = #{name} and remove = 0")
     Boolean existsByName(String name);
-//    @Insert("insert into ItemInfo")
 
 }

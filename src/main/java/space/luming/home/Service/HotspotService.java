@@ -30,7 +30,7 @@ class HotspotImpl implements HotspotService {
 
     @Override
     public int createHotspot(Hotspot hotspot) {
-        if(searchHotspot(hotspot.getName()) == null) return 0;
+        if(existsByName(hotspot.getName())) return 0;
         hotspotMapper.createHotspot(hotspot);
         return 1;
     }
@@ -40,9 +40,12 @@ class HotspotImpl implements HotspotService {
         return hotspotMapper.findHotspotByName(name);
     }
 
+    public boolean existsByName(String name){
+        return hotspotMapper.existsByName(name);
+    }
     @Override
     public int deleteHotspot(String name) {
-        if(searchHotspot(name) == null) return 0;
+        if(existsByName(name)) return 0;
         hotspotMapper.deleteHotspot(name);
         return 1;
     }
